@@ -33,6 +33,14 @@ res.sendFile(path.join(__dirname, 'public/notes.html')))
 
 app.get('/api/notes', (req, res) => res.json(termData))
 
+app.post('/api/notes', (req, res) => {
+    res.json(`${req.method} request received`)
+    console.log(req.body)
+    console.log('Raw headers ===>', `${req.rawHeaders}`)
+
+    console.info(`${req.method} request received`)
+})
+
 app.listen(PORT, () =>
 console.log(`Example app listening at http://localhost:${PORT}`))
 
