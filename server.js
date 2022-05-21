@@ -74,7 +74,7 @@ app.delete("/api/notes/:id", (req, res) => {
   console.log('params', req.params.id)
   console.log(`${req.method} request received`)
 
-  const delNote = termData.filter (note => note.id !== req.params.id)
+  const delNote = termData.filter(note => note.id !== req.params.id)
   /*
     get id from param
     filter out the id you got from param to get an array that does not include
@@ -83,9 +83,10 @@ app.delete("/api/notes/:id", (req, res) => {
     if (err) {
       return console.log(err);
     }
-    console.log("Your note was saved!");
+    console.log("Your note is deleted!");
+    res.json({ noteId: req.params.id }) 
   });
-  res.sendStatus(200)
+ 
     
 })
 
