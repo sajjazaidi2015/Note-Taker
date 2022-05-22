@@ -33,7 +33,11 @@ app.get("/notes", (req, res) =>
   res.sendFile(path.join(__dirname, "public/notes.html"))
 );
 
-app.get("/api/notes", (req, res) => res.json(termData));
+// fs.readFile("./db/db.json", "utf8", (error, data) => {
+//   error ? console.log(error) : res.json(data)
+// })
+
+app.get("/api/notes", (req, res) =>  res.json(termData));
 
 app.post("/api/notes", (req, res) => {
   // Log that a POST request was received
@@ -74,12 +78,19 @@ app.delete("/api/notes/:id", (req, res) => {
   console.log('params', req.params.id)
   console.log(`${req.method} request received`)
 
-  const delNote = termData.filter(note => note.id !== req.params.id)
+  for (let i = 0; i < termData.length; i++) {
+
+    if (termData[i].id == req.params.id) {
+        // Splice takes i position, and then deletes the 1 note.
+        termData.splice(i, 1);
+        break;
+    }
+}
   /*
     get id from param
     filter out the id you got from param to get an array that does not include
   */
-  fs.writeFile("./db/db.json", JSON.stringify(delNote), function (err) {
+  fs.writeFile("./db/db.json", JSON.stringify(termData), function (err) {
     if (err) {
       return console.log(err);
     }
